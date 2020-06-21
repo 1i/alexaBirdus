@@ -20,7 +20,7 @@ public class HelpIntentHandler implements RequestHandler {
     @Override
     public Optional<Response> handle(HandlerInput input) {
         String speechText = "Try saying Birdus get sightings";
-        log.info(speechText);
+        System.out.println(speechText);
 
         return input.getResponseBuilder()
                 .withSpeech(speechText)

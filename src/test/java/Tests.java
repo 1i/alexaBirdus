@@ -5,7 +5,6 @@ import com.onei.birdus.Model;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -51,5 +50,13 @@ public class Tests {
         });
 
         System.out.println(models);
+    }
+
+    @Test
+    public void getResultsForTest(){
+        GroupBirdsBy groupBirdsBy = new GroupBirdsBy();
+        String results = groupBirdsBy.getResultsFor("cork");
+
+        System.out.println(results);
     }
 }

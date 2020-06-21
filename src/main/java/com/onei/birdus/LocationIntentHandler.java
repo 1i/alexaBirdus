@@ -25,18 +25,25 @@ public class LocationIntentHandler implements RequestHandler {
     @Override
     public Optional<Response> handle(HandlerInput input) {
         String speechText = "LocationIntentHandler";
-        log.info(speechText);
+        System.out.println(speechText);
 
-        Request request1 =  input.getRequestEnvelope().getRequest();
+        Request request1 = input.getRequestEnvelope().getRequest();
         IntentRequest intentRequest = (IntentRequest) request1;
         Map<String, Slot> slots = intentRequest.getIntent().getSlots();
+        Slot slotCounty = slots.get("county");
+        String slotValue = (slotCounty != null) ? slotCounty.getValue() : "null";
+        System.out.println("slotValue " + slotValue);
+        System.out.println("slot County " + slotCounty);
         Request request = input.getRequest();
         String county = (String) input.getAttributesManager().getSessionAttributes().get("county");
-        System.out.println("County "+ county);
+        System.out.println("County " + county);
         System.out.println("Request " + request);
+        GroupBirdsBy groupBirdsBy = new GroupBirdsBy();
+        String results = groupBirdsBy.getResultsFor(slotValue);
+
         return input.getResponseBuilder()
-                .withSpeech(speechText)
-                .withSimpleCard("LocationIntentHandler", speechText)
+                .withSpeech(results)
+                .withSimpleCard("LocationIntentHandler", results)
                 .build();
     }
 

@@ -25,7 +25,7 @@ public class DateIntentHandler implements RequestHandler {
     @Override
     public Optional<Response> handle(HandlerInput input) {
         String speechText = "DateIntent";
-        log.info(speechText);
+        System.out.println(speechText);
 
         Request request1 =  input.getRequestEnvelope().getRequest();
         IntentRequest intentRequest = (IntentRequest) request1;
