@@ -1,0 +1,287 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "birdus",
+      "modelConfiguration": {
+        "fallbackIntentSensitivity": {
+          "level": "LOW"
+        }
+      },
+      "intents": [
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": [
+            "help"
+          ]
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "birdusIntent",
+          "slots": [
+            {
+              "name": "county",
+              "type": "IrishCounties"
+            },
+            {
+              "name": "date",
+              "type": "AMAZON.DATE"
+            }
+          ],
+          "samples": [
+            "get {date} sightings",
+            "list {county}"
+          ]
+        },
+        {
+          "name": "LaunchRequest",
+          "slots": [
+            {
+              "name": "county",
+              "type": "IrishCounties"
+            }
+          ],
+          "samples": [
+            "day {date}",
+            "get for {county}",
+            "birdus start"
+          ]
+        }
+      ],
+      "types": [
+        {
+          "name": "IrishCounties",
+          "values": [
+            {
+              "id": "Antrim",
+              "name": {
+                "value": "Antrim"
+              }
+            },
+            {
+              "id": "Armagh",
+              "name": {
+                "value": "Armagh"
+              }
+            },
+            {
+              "id": "Carlow",
+              "name": {
+                "value": "Carlow"
+              }
+            },
+            {
+              "id": "Cavan",
+              "name": {
+                "value": "Cavan"
+              }
+            },
+            {
+              "id": "Clare",
+              "name": {
+                "value": "Clare"
+              }
+            },
+            {
+              "id": "Cork",
+              "name": {
+                "value": "Cork"
+              }
+            },
+            {
+              "id": "Derry",
+              "name": {
+                "value": "Derry"
+              }
+            },
+            {
+              "id": "Donegal",
+              "name": {
+                "value": "Donegal"
+              }
+            },
+            {
+              "id": "Down",
+              "name": {
+                "value": "Down"
+              }
+            },
+            {
+              "id": "Dublin",
+              "name": {
+                "value": "Dublin"
+              }
+            },
+            {
+              "id": "Fermanagh",
+              "name": {
+                "value": "Fermanagh"
+              }
+            },
+            {
+              "id": "Galway",
+              "name": {
+                "value": "Galway"
+              }
+            },
+            {
+              "id": "Kerry",
+              "name": {
+                "value": "Kerry"
+              }
+            },
+            {
+              "id": "Kildare",
+              "name": {
+                "value": "Kildare"
+              }
+            },
+            {
+              "id": "Kilkenny",
+              "name": {
+                "value": "Kilkenny"
+              }
+            },
+            {
+              "id": "Laois",
+              "name": {
+                "value": "Laois"
+              }
+            },
+            {
+              "id": "Leitrim",
+              "name": {
+                "value": "Leitrim"
+              }
+            },
+            {
+              "id": "Limerick",
+              "name": {
+                "value": "Limerick"
+              }
+            },
+            {
+              "id": "Longford",
+              "name": {
+                "value": "Longford"
+              }
+            },
+            {
+              "id": "Louth",
+              "name": {
+                "value": "Louth"
+              }
+            },
+            {
+              "id": "Mayo",
+              "name": {
+                "value": "Mayo"
+              }
+            },
+            {
+              "id": "Meath",
+              "name": {
+                "value": "Meath"
+              }
+            },
+            {
+              "id": "Monaghan",
+              "name": {
+                "value": "Monaghan"
+              }
+            },
+            {
+              "id": "Offaly",
+              "name": {
+                "value": "Offaly"
+              }
+            },
+            {
+              "id": "Roscommon",
+              "name": {
+                "value": "Roscommon"
+              }
+            },
+            {
+              "id": "Sligo",
+              "name": {
+                "value": "Sligo"
+              }
+            },
+            {
+              "id": "Tipperary",
+              "name": {
+                "value": "Tipperary"
+              }
+            },
+            {
+              "id": "Tyrone",
+              "name": {
+                "value": "Tyrone"
+              }
+            },
+            {
+              "id": "Waterford",
+              "name": {
+                "value": "Waterford"
+              }
+            },
+            {
+              "id": "Westmeath",
+              "name": {
+                "value": "Westmeath"
+              }
+            },
+            {
+              "id": "Wexford",
+              "name": {
+                "value": "Wexford"
+              }
+            },
+            {
+              "id": "Wicklow",
+              "name": {
+                "value": "Wicklow"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "dialog": {
+      "intents": [
+        {
+          "name": "LaunchRequest",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "county",
+              "type": "IrishCounties",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": ""
+              }
+            }
+          ]
+        }
+      ],
+      "delegationStrategy": "ALWAYS"
+    }
+  }
+}
