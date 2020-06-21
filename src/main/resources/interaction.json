@@ -31,34 +31,34 @@
           "samples": []
         },
         {
-          "name": "birdusIntent",
+          "name": "locationIntent",
           "slots": [
             {
               "name": "county",
               "type": "IrishCounties"
-            },
+            }
+          ],
+          "samples": [
+            "list {county}"
+          ]
+        },
+        {
+          "name": "LaunchRequest",
+          "slots": [],
+          "samples": [
+            "birdus start"
+          ]
+        },
+        {
+          "name": "dateIntent",
+          "slots": [
             {
               "name": "date",
               "type": "AMAZON.DATE"
             }
           ],
           "samples": [
-            "get {date} sightings",
-            "list {county}"
-          ]
-        },
-        {
-          "name": "LaunchRequest",
-          "slots": [
-            {
-              "name": "county",
-              "type": "IrishCounties"
-            }
-          ],
-          "samples": [
-            "day {date}",
-            "get for {county}",
-            "birdus start"
+            "get {date} sightings"
           ]
         }
       ],
@@ -261,27 +261,6 @@
           ]
         }
       ]
-    },
-    "dialog": {
-      "intents": [
-        {
-          "name": "LaunchRequest",
-          "confirmationRequired": false,
-          "prompts": {},
-          "slots": [
-            {
-              "name": "county",
-              "type": "IrishCounties",
-              "confirmationRequired": false,
-              "elicitationRequired": true,
-              "prompts": {
-                "elicitation": ""
-              }
-            }
-          ]
-        }
-      ],
-      "delegationStrategy": "ALWAYS"
     }
   }
 }
