@@ -24,7 +24,7 @@ public class LaunchRequestHandler implements RequestHandler {
 
         return input.getResponseBuilder()
                 .withSpeech(groupBirdsBy.getResults())
-                .withSimpleCard("HelloWorld", speechText)
+                .withSimpleCard(speechText, groupBirdsBy.getResults())
                 .withReprompt(groupBirdsBy.getResults())
                 .build();
     }
