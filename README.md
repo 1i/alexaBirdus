@@ -17,3 +17,7 @@ aws lambda update-function-code --function-name birdus-alexa --zip-file fileb://
 ### Pom
 Maven shade plugin is used to include extra dependencies in the jar for Lambda 
 with the setting for _createDependencyReducedPom_ to false.
+
+### Gitpod
+Messing around with this.
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/1i/alexaBirdus)
