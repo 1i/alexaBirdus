@@ -1,4 +1,4 @@
-## Birdus Alexa Skill
+# Birdus Alexa Skill
 
 Read a list of bird sightings from S3, sort into counties and list the species seen for that day.  
   
@@ -14,6 +14,6 @@ aws lambda update-function-code --function-name birdus-alexa --zip-file fileb://
 ``
 
 
-## Pom
+### Pom
 Maven shade plugin is used to include extra dependencies in the jar for Lambda 
 with the setting for _createDependencyReducedPom_ to false.
