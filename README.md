@@ -5,6 +5,8 @@ Read a list of bird sightings from S3, sort into counties and list the species s
 - allow users to say a county _Kerry_ and return only the sightings in Kerry.  
 - allow users to say a date _yesterdays_ sightings and return only the sightings for yesterday.  
 
+Lambda collects results -> saves S3 & DynamoDb -> Alexa reads results.
+
 ### 
 Update the lambda  
 ``
