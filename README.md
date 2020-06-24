@@ -19,5 +19,5 @@ Maven shade plugin is used to include extra dependencies in the jar for Lambda
 with the setting for _createDependencyReducedPom_ to false.
 
 ### Gitpod
-Messing around with this.
+Messing around with this. No AWS Cli support for the moment.  
 [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/1i/alexaBirdus)
