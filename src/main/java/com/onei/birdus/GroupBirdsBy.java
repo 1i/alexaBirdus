@@ -78,4 +78,37 @@ public class GroupBirdsBy {
 
         return result.toString();
     }
+
+    public String getResultsForDate(String date) {
+        System.out.println("Start getResultsForDate " + date);
+        StringBuilder result = new StringBuilder();
+
+        String today = LocalDate.parse(date).format(DateTimeFormatter.ofPattern("yy-MM-dd"));
+
+        List<Model> models = null;
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            URL path = new URL("http://birdus.s3-eu-west-1.amazonaws.com/" + today + ".json");
+            models = objectMapper.readValue(path, new TypeReference<List<Model>>() {
+            });
+        } catch (IOException e) {
+            log.error(e.toString());
+        }
+
+        Map<String, List<Model>> byCounties = models.stream().collect(Collectors.groupingBy(Model::getCounty));
+
+        byCounties.entrySet().stream().sorted(Comparator.comparing(size -> size.getValue().size()));
+
+        result.append("Today has " + models.size() + " sightings. ");
+
+        for (List<Model> county : byCounties.values()) {
+
+            result.append("In " + county.get(0).getCounty() + ". ");
+            county.forEach(model -> result.append(model.getCommonName() + ", "));
+
+        }
+
+
+        return result.toString();
+    }
 }
