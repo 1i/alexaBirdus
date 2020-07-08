@@ -6,7 +6,7 @@ import com.amazon.ask.SkillStreamHandler;
 import com.amazon.ask.Skills;
 
 
-public class HelloWorldStreamHandler extends SkillStreamHandler {
+public class BirdusStreamHandler extends SkillStreamHandler {
 
     private static Skill getSkill() {
         return Skills.standard()
@@ -15,12 +15,14 @@ public class HelloWorldStreamHandler extends SkillStreamHandler {
                         new CancelandStopIntentHandler(),
                         new HelpIntentHandler(),
                         new LocationIntentHandler(),
-                        new FallbackIntentHandler()
+                        new FallbackIntentHandler(),
+                        new DateIntentHandler(),
+                        new DayIntentHandler()
                 )
                 .build();
     }
 
-    public HelloWorldStreamHandler() {
+    public BirdusStreamHandler() {
         super(getSkill());
     }
 
