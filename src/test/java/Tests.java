@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.net.URL;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 public class Tests {
 
     Model model = new Model();
+    GroupBirdsBy groupBirdsBy = new GroupBirdsBy();
 
     @Test
     public void json() throws Exception {
@@ -33,7 +35,6 @@ public class Tests {
 
     @Test
     public void formatter(){
-        GroupBirdsBy groupBirdsBy = new GroupBirdsBy();
 
         groupBirdsBy.getResults();
     }
@@ -54,9 +55,35 @@ public class Tests {
 
     @Test
     public void getResultsForTest(){
-        GroupBirdsBy groupBirdsBy = new GroupBirdsBy();
         String results = groupBirdsBy.getResultsFor("cork");
 
+        System.out.println(results);
+    }
+
+    @Test
+    public void getResultsForDay(){
+
+        String today = LocalDate.now().toString();
+
+        String results = groupBirdsBy.getResultsForDate(today);
+
+        System.out.println(results);
+    }
+
+    @Test
+    public void getDayOfWeek(){
+
+        String input =  "monday";
+        DayOfWeek today = LocalDate.now().getDayOfWeek();
+        DayOfWeek dayOfWeek = DayOfWeek.valueOf(input.toUpperCase());
+        System.out.println(today);
+        System.out.println(dayOfWeek);
+
+        System.out.println();
+        int differenceOfDays = today.minus(dayOfWeek.getValue()).getValue();
+        String expectedDate = LocalDate.now().minusDays(differenceOfDays).toString();
+
+        String results = groupBirdsBy.getResultsForDate(expectedDate);
         System.out.println(results);
     }
 }

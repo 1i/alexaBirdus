@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
@@ -83,12 +84,12 @@ public class GroupBirdsBy {
         System.out.println("Start getResultsForDate " + date);
         StringBuilder result = new StringBuilder();
 
-        String today = LocalDate.parse(date).format(DateTimeFormatter.ofPattern("yy-MM-dd"));
+        String formattedDate = LocalDate.parse(date).format(DateTimeFormatter.ofPattern("yy-MM-dd"));
 
         List<Model> models = null;
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            URL path = new URL("http://birdus.s3-eu-west-1.amazonaws.com/" + today + ".json");
+            URL path = new URL("http://birdus.s3-eu-west-1.amazonaws.com/" + formattedDate + ".json");
             models = objectMapper.readValue(path, new TypeReference<List<Model>>() {
             });
         } catch (IOException e) {
@@ -99,15 +100,13 @@ public class GroupBirdsBy {
 
         byCounties.entrySet().stream().sorted(Comparator.comparing(size -> size.getValue().size()));
 
-        result.append("Today has " + models.size() + " sightings. ");
+
+        result.append(LocalDate.parse(date).getDayOfWeek().toString() +" has " + models.size() + " sightings. ");
 
         for (List<Model> county : byCounties.values()) {
-
             result.append("In " + county.get(0).getCounty() + ". ");
             county.forEach(model -> result.append(model.getCommonName() + ", "));
-
         }
-
 
         return result.toString();
     }
