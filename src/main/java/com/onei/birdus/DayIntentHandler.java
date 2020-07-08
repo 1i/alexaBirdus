@@ -16,31 +16,35 @@ import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
-public class DateIntentHandler implements RequestHandler {
+public class DayIntentHandler implements RequestHandler {
 
     @Override
     public boolean canHandle(HandlerInput input) {
         System.out.println(input);
-        return input.matches(Predicates.intentName("dateIntent"));
+        return input.matches(Predicates.intentName("dayIntent"));
     }
 
     @Override
     public Optional<Response> handle(HandlerInput input) {
-        String speechText = "DateIntent";
+        String speechText = "DayIntent";
         System.out.println(speechText);
-
-        Request request = input.getRequestEnvelope().getRequest();
-        IntentRequest intentRequest = (IntentRequest) request;
-        Map<String, Slot> slots = intentRequest.getIntent().getSlots();
-        Slot date = slots.get("date");
-        String slotValue = (date != null) ? date.getValue() : "null";
-        System.out.println("slotValue " + slotValue);
-        System.out.println("slot date " + date);
         GroupBirdsBy groupBirdsBy = new GroupBirdsBy();
-        String results = groupBirdsBy.getResultsForDate(slotValue);
+
+        Request request1 = input.getRequestEnvelope().getRequest();
+        IntentRequest intentRequest = (IntentRequest) request1;
+        Map<String, Slot> slots = intentRequest.getIntent().getSlots();
+        Slot day = slots.get("day");
+        String slotValue = (day != null) ? day.getValue() : "null";
+        System.out.println("slotValue " + slotValue);
+        System.out.println("slot day " + day);
+        DayOfWeek today = LocalDate.now().getDayOfWeek();
+        DayOfWeek dayOfWeek = DayOfWeek.valueOf(slotValue.toUpperCase());
+        int differenceOfDays = today.minus(dayOfWeek.getValue()).getValue();
+        String expectedDate = LocalDate.now().minusDays(differenceOfDays).toString();
+        String results = groupBirdsBy.getResultsForDate(expectedDate);
         return input.getResponseBuilder()
                 .withSpeech(results)
-                .withSimpleCard("DateIntent", results)
+                .withSimpleCard("DayIntent", speechText)
                 .build();
     }
 
