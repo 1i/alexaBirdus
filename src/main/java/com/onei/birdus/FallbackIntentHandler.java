@@ -20,7 +20,7 @@ public class FallbackIntentHandler implements RequestHandler {
         String speechText = "FallbackIntentHandler";
         return input.getResponseBuilder()
                 .withSpeech(speechText)
-                .withSimpleCard("HelloWorld", speechText)
+                .withSimpleCard("FallbackIntentHandler", speechText)
                 .withReprompt(speechText)
                 .build();
     }
