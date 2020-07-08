@@ -18,8 +18,8 @@ public class DateIntentHandler implements RequestHandler {
 
     @Override
     public boolean canHandle(HandlerInput input) {
-
-        return input.matches(Predicates.intentName("DateIntent"));
+        System.out.println(input);
+        return input.matches(Predicates.intentName("dateIntent"));
     }
 
     @Override
@@ -27,13 +27,19 @@ public class DateIntentHandler implements RequestHandler {
         String speechText = "DateIntent";
         System.out.println(speechText);
 
-        Request request1 =  input.getRequestEnvelope().getRequest();
+        Request request1 = input.getRequestEnvelope().getRequest();
         IntentRequest intentRequest = (IntentRequest) request1;
         Map<String, Slot> slots = intentRequest.getIntent().getSlots();
+        Slot date = slots.get("date");
+        String slotValue = (date != null) ? date.getValue() : "null";
+        System.out.println("slotValue " + slotValue);
+        System.out.println("slot date " + date);
         Request request = input.getRequest();
-        String county = (String) input.getAttributesManager().getSessionAttributes().get("date");
-        System.out.println("date "+ county);
+        String date1 = (String) input.getAttributesManager().getSessionAttributes().get("date");
+        System.out.println("date " + date1);
         System.out.println("Request " + request);
+        GroupBirdsBy groupBirdsBy = new GroupBirdsBy();
+        String results = groupBirdsBy.getResultsFor(slotValue);
         return input.getResponseBuilder()
                 .withSpeech(speechText)
                 .withSimpleCard("DateIntent", speechText)
