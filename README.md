@@ -1,18 +1,22 @@
 # Birdus Alexa Skill
 
-Read a list of bird sightings from S3, sort into counties and list the species seen for that day.  
+Read a list of bird sightings, sort into counties by day and list the species seen for that day.  
   
-- allow users to say a county _Kerry_ and return only the sightings in Kerry.  
-- allow users to say a date _yesterdays_ sightings and return only the sightings for yesterday.  
+- Defaults to all sightings yesterday sorted by counties.
+- Allow users to say a county _Kerry_ and return only the sightings in Kerry.  
+- Allow users to say a day _Monday_ sightings and return the sightings for that specfic day.  
+- Allow users to say a day _Monday_ and a location _Kerry_ sightings and return only the sightings in Kerry that specfic day.  
 
-Lambda collects results -> saves S3 & DynamoDb -> Alexa reads results.
+
+Lambda collects results -> saves to S3 & DynamoDb -> Alexa reads results.
+Relies on https://github.com/1i/dynamoBirdus to prepopulate the sightings.
 
 ### 
 Update the lambda  
-``
+```
+maven clean install
 aws lambda update-function-code --function-name birdus-alexa --zip-file fileb://./alexa-1.0-SNAPSHOT.jar
-``
-
+```
 
 ### Pom
 Maven shade plugin is used to include extra dependencies in the jar for Lambda 
