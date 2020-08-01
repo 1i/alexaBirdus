@@ -73,9 +73,9 @@ public class Tests {
     @Test
     public void getDayOfWeek(){
 
-        String input =  "monday";
+        String date =  "monday";
         DayOfWeek today = LocalDate.now().getDayOfWeek();
-        DayOfWeek dayOfWeek = DayOfWeek.valueOf(input.toUpperCase());
+        DayOfWeek dayOfWeek = DayOfWeek.valueOf(date.toUpperCase());
         System.out.println(today);
         System.out.println(dayOfWeek);
 
@@ -84,6 +84,26 @@ public class Tests {
         String expectedDate = LocalDate.now().minusDays(differenceOfDays).toString();
 
         String results = groupBirdsBy.getResultsForDate(expectedDate);
+        System.out.println(results);
+    }
+
+    @Test
+    public void getLocationByDayOfWeek(){
+
+        String date = LocalDate.now().minusDays(1).toString();
+        String county =  "dublin";
+
+        String results = groupBirdsBy.getResultsForCountyByDay(county,date);
+        System.out.println(results);
+    }
+
+      @Test
+    public void getLocationByDayOfWeekCork(){
+
+        String date = LocalDate.now().minusDays(1).toString();
+        String county =  "cork";
+
+        String results = groupBirdsBy.getResultsForCountyByDay(county,date);
         System.out.println(results);
     }
 }
