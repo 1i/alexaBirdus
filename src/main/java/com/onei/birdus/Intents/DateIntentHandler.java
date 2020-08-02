@@ -1,4 +1,4 @@
-package com.onei.birdus;
+package com.onei.birdus.Intents;
 
 
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
@@ -8,6 +8,7 @@ import com.amazon.ask.model.Request;
 import com.amazon.ask.model.Response;
 import com.amazon.ask.model.Slot;
 import com.amazon.ask.request.Predicates;
+import com.onei.birdus.BirdusS3Client;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;

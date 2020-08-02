@@ -4,6 +4,7 @@ package com.onei.birdus;
 import com.amazon.ask.Skill;
 import com.amazon.ask.SkillStreamHandler;
 import com.amazon.ask.Skills;
+import com.onei.birdus.Intents.*;
 
 
 public class BirdusStreamHandler extends SkillStreamHandler {

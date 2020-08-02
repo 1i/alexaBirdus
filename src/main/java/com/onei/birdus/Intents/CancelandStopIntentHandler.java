@@ -1,4 +1,4 @@
-package com.onei.birdus;
+package com.onei.birdus.Intents;
 
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;

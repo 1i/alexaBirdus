@@ -1,4 +1,4 @@
-package com.onei.birdus;
+package com.onei.birdus.Intents;
 
 
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
@@ -8,6 +8,8 @@ import com.amazon.ask.model.Request;
 import com.amazon.ask.model.Response;
 import com.amazon.ask.model.Slot;
 import com.amazon.ask.request.Predicates;
+import com.onei.birdus.BirdusS3Client;
+import com.onei.birdus.Utils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.DayOfWeek;
@@ -37,11 +39,8 @@ public class DayIntentHandler implements RequestHandler {
         String slotValue = (day != null) ? day.getValue() : "null";
         System.out.println("slotValue " + slotValue);
         System.out.println("slot day " + day);
-        DayOfWeek today = LocalDate.now().getDayOfWeek();
-        DayOfWeek dayOfWeek = DayOfWeek.valueOf(slotValue.toUpperCase());
-        int differenceOfDays = today.minus(dayOfWeek.getValue()).getValue();
-        String expectedDate = LocalDate.now().minusDays(differenceOfDays).toString();
-        String results = birdusS3Client.getResultsForDate(expectedDate);
+        String date = Utils.getDateFromDay(slotValue);
+        String results = birdusS3Client.getResultsForDate(date);
         return input.getResponseBuilder()
                 .withSpeech(results)
                 .withSimpleCard("DayIntent", speechText)

@@ -1,4 +1,4 @@
-package com.onei.birdus;
+package com.onei.birdus.Intents;
 
 
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
@@ -8,6 +8,8 @@ import com.amazon.ask.model.Request;
 import com.amazon.ask.model.Response;
 import com.amazon.ask.model.Slot;
 import com.amazon.ask.request.Predicates;
+import com.onei.birdus.BirdusS3Client;
+import com.onei.birdus.Utils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
@@ -33,8 +35,8 @@ public class LocationDateIntentHandler implements RequestHandler {
         Map<String, Slot> slots = intentRequest.getIntent().getSlots();
         Slot slotCounty = slots.get("county");
         Slot slotDay = slots.get("day");
-        String slotValue = (slotCounty != null) ? slotCounty.getValue() : "null";
-        System.out.println("slotValue " + slotValue);
+        String countyValue = (slotCounty != null) ? slotCounty.getValue() : "null";
+        System.out.println(" " + countyValue);
         System.out.println("slot County " + slotCounty);
         String dayValue = (slotDay != null) ? slotDay.getValue(): LocalDate.now().toString();
         System.out.println("dayValue " + dayValue);
@@ -46,7 +48,9 @@ public class LocationDateIntentHandler implements RequestHandler {
         System.out.println("Day " + day);
         System.out.println("Request " + request);
         BirdusS3Client birdusS3Client = new BirdusS3Client();
-        String results = birdusS3Client.getResultsForCountyByDay(county,day);
+
+        String dateFromDay = Utils.getDateFromDay(dayValue);
+        String results = birdusS3Client.getResultsForCountyByDay(countyValue,dateFromDay);
 
         return input.getResponseBuilder()
                 .withSpeech(results)
