@@ -1,6 +1,6 @@
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.onei.birdus.GroupBirdsBy;
+import com.onei.birdus.BirdusS3Client;
 import com.onei.birdus.Model;
 import org.junit.jupiter.api.Test;
 
@@ -11,39 +11,37 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class Tests {
 
-    Model model = new Model();
-    GroupBirdsBy groupBirdsBy = new GroupBirdsBy();
+    private BirdusS3Client birdusS3Client = new BirdusS3Client();
 
     @Test
-    public void json() throws Exception {
-        URL resource = Model.class.getClassLoader().getResource("result.json");
+    public void localJson() throws Exception {
+        String example = "20-06-12.json";
+        URL resource = Model.class.getClassLoader().getResource(example);
 
         ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource("result.json").getFile());
+        File file = new File(classLoader.getResource(example).getFile());
 
         ObjectMapper objectMapper = new ObjectMapper();
         List<Model> models = objectMapper.readValue(file, new TypeReference<List<Model>>() {
         });
 
-
-        System.out.println(models.size());
+        assertEquals(15, models.size());
         models.forEach(model -> System.out.println(model.getCommonName() + " in " + model.getCounty()));
-
     }
 
     @Test
-    public void formatter(){
-
-        groupBirdsBy.getResults();
+    public void formatter() {
+        birdusS3Client.getResults();
     }
 
     @Test
     public void getJson() throws Exception {
-
         String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yy-MM-dd"));
-        URL path = new URL("http://birdus.s3-eu-west-1.amazonaws.com/"+today+".json");
+        URL path = new URL("http://birdus.s3-eu-west-1.amazonaws.com/" + today + ".json");
 
         List<Model> models;
         ObjectMapper objectMapper = new ObjectMapper();
@@ -54,26 +52,24 @@ public class Tests {
     }
 
     @Test
-    public void getResultsForTest(){
-        String results = groupBirdsBy.getResultsFor("cork");
+    public void getResultsForTest() {
+        String results = birdusS3Client.getResultsFor("cork");
 
         System.out.println(results);
     }
 
     @Test
-    public void getResultsForDay(){
-
+    public void getResultsForDay() {
         String today = LocalDate.now().toString();
 
-        String results = groupBirdsBy.getResultsForDate(today);
+        String results = birdusS3Client.getResultsForDate(today);
 
         System.out.println(results);
     }
 
     @Test
-    public void getDayOfWeek(){
-
-        String date =  "monday";
+    public void getDayOfWeek() {
+        String date = "monday";
         DayOfWeek today = LocalDate.now().getDayOfWeek();
         DayOfWeek dayOfWeek = DayOfWeek.valueOf(date.toUpperCase());
         System.out.println(today);
@@ -83,27 +79,25 @@ public class Tests {
         int differenceOfDays = today.minus(dayOfWeek.getValue()).getValue();
         String expectedDate = LocalDate.now().minusDays(differenceOfDays).toString();
 
-        String results = groupBirdsBy.getResultsForDate(expectedDate);
+        String results = birdusS3Client.getResultsForDate(expectedDate);
         System.out.println(results);
     }
 
     @Test
-    public void getLocationByDayOfWeek(){
+    public void getLocationByDayOfWeek() {
+        String date = LocalDate.now().minusDays(4).toString();
+        String county = "dublin";
 
-        String date = LocalDate.now().minusDays(1).toString();
-        String county =  "dublin";
-
-        String results = groupBirdsBy.getResultsForCountyByDay(county,date);
+        String results = birdusS3Client.getResultsForCountyByDay(county, date);
         System.out.println(results);
     }
 
-      @Test
-    public void getLocationByDayOfWeekCork(){
+    @Test
+    public void getLocationByDayOfWeekCork() {
+        String date = LocalDate.now().minusDays(7).toString();
+        String county = "cork";
 
-        String date = LocalDate.now().minusDays(1).toString();
-        String county =  "cork";
-
-        String results = groupBirdsBy.getResultsForCountyByDay(county,date);
+        String results = birdusS3Client.getResultsForCountyByDay(county, date);
         System.out.println(results);
     }
 }

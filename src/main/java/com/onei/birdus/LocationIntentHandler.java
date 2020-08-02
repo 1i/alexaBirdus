@@ -38,8 +38,8 @@ public class LocationIntentHandler implements RequestHandler {
         String county = (String) input.getAttributesManager().getSessionAttributes().get("county");
         System.out.println("County " + county);
         System.out.println("Request " + request);
-        GroupBirdsBy groupBirdsBy = new GroupBirdsBy();
-        String results = groupBirdsBy.getResultsFor(slotValue);
+        BirdusS3Client birdusS3Client = new BirdusS3Client();
+        String results = birdusS3Client.getResultsFor(slotValue);
 
         return input.getResponseBuilder()
                 .withSpeech(results)

@@ -10,8 +10,6 @@ import com.amazon.ask.model.Slot;
 import com.amazon.ask.request.Predicates;
 import lombok.extern.slf4j.Slf4j;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.util.Map;
 import java.util.Optional;
 
@@ -36,8 +34,8 @@ public class DateIntentHandler implements RequestHandler {
         String slotValue = (date != null) ? date.getValue() : "null";
         System.out.println("slotValue " + slotValue);
         System.out.println("slot date " + date);
-        GroupBirdsBy groupBirdsBy = new GroupBirdsBy();
-        String results = groupBirdsBy.getResultsForDate(slotValue);
+        BirdusS3Client birdusS3Client = new BirdusS3Client();
+        String results = birdusS3Client.getResultsForDate(slotValue);
         return input.getResponseBuilder()
                 .withSpeech(results)
                 .withSimpleCard("DateIntent", results)

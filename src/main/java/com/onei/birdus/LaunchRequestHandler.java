@@ -20,12 +20,12 @@ public class LaunchRequestHandler implements RequestHandler {
     public Optional<Response> handle(HandlerInput input) {
         String speechText = "LaunchRequest";
 
-        GroupBirdsBy groupBirdsBy = new GroupBirdsBy();
+        BirdusS3Client birdusS3Client = new BirdusS3Client();
 
         return input.getResponseBuilder()
-                .withSpeech(groupBirdsBy.getResults())
-                .withSimpleCard(speechText, groupBirdsBy.getResults())
-                .withReprompt(groupBirdsBy.getResults())
+                .withSpeech(birdusS3Client.getResults())
+                .withSimpleCard(speechText, birdusS3Client.getResults())
+                .withReprompt(birdusS3Client.getResults())
                 .build();
     }
 

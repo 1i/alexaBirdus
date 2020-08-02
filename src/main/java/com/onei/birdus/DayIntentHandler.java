@@ -28,7 +28,7 @@ public class DayIntentHandler implements RequestHandler {
     public Optional<Response> handle(HandlerInput input) {
         String speechText = "DayIntent";
         System.out.println(speechText);
-        GroupBirdsBy groupBirdsBy = new GroupBirdsBy();
+        BirdusS3Client birdusS3Client = new BirdusS3Client();
 
         Request request1 = input.getRequestEnvelope().getRequest();
         IntentRequest intentRequest = (IntentRequest) request1;
@@ -41,7 +41,7 @@ public class DayIntentHandler implements RequestHandler {
         DayOfWeek dayOfWeek = DayOfWeek.valueOf(slotValue.toUpperCase());
         int differenceOfDays = today.minus(dayOfWeek.getValue()).getValue();
         String expectedDate = LocalDate.now().minusDays(differenceOfDays).toString();
-        String results = groupBirdsBy.getResultsForDate(expectedDate);
+        String results = birdusS3Client.getResultsForDate(expectedDate);
         return input.getResponseBuilder()
                 .withSpeech(results)
                 .withSimpleCard("DayIntent", speechText)
