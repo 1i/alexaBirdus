@@ -37,7 +37,7 @@ public class BirdusS3Client {
 
         byCounties.entrySet().stream().sorted(Comparator.comparing(size -> size.getValue().size()));
 
-        result.append("Today has " + models.size() + " sightings. ");
+        result.append("Yesterday had " + models.size() + " sightings. ");
 
         for (List<Model> county : byCounties.values()) {
             result.append("In " + county.get(0).getCounty() + ". ");
@@ -59,7 +59,7 @@ public class BirdusS3Client {
         }
 
         List<Model> counties = models.stream().filter(model -> model.getCounty().equalsIgnoreCase(county)).collect(Collectors.toList());
-        result.append(county + " today has " + counties.size() + " sightings. ");
+        result.append(county + " yesterday had " + counties.size() + " sightings. ");
 
         for (Model location : counties) {
             result.append(location.getCommonName() + ", ");
@@ -82,7 +82,7 @@ public class BirdusS3Client {
         Map<String, List<Model>> byCounties = models.stream().collect(Collectors.groupingBy(Model::getCounty));
 
         byCounties.entrySet().stream().sorted(Comparator.comparing(size -> size.getValue().size()));
-        result.append("Last " + LocalDate.parse(date).getDayOfWeek().toString() + " has " + models.size() + " sightings. ");
+        result.append("Last " + LocalDate.parse(date).getDayOfWeek().toString() + " had " + models.size() + " sightings. ");
 
         for (List<Model> county : byCounties.values()) {
             result.append("In " + county.get(0).getCounty() + ". ");
@@ -105,7 +105,7 @@ public class BirdusS3Client {
 
         List<Model> counties = models.stream().filter(model -> model.getCounty().equalsIgnoreCase(county)).collect(Collectors.toList());
         result.append("Last " + LocalDate.parse(date).getDayOfWeek().toString() + "  ");
-        result.append(county + " has " + counties.size() + " sightings. ");
+        result.append(county + " had " + counties.size() + " sightings. ");
 
         for (Model location : counties) {
             result.append(location.getCommonName() + ", ");

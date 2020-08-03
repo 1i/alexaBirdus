@@ -3,9 +3,10 @@ package com.onei.birdus.Intents;
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
 import com.amazon.ask.model.Response;
-import static com.amazon.ask.request.Predicates.intentName;
 
 import java.util.Optional;
+
+import static com.amazon.ask.request.Predicates.intentName;
 
 public class CancelandStopIntentHandler implements RequestHandler {
 
@@ -16,9 +17,10 @@ public class CancelandStopIntentHandler implements RequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput input) {
+        String goodbye = "Goodbye";
         return input.getResponseBuilder()
-                .withSpeech("Goodbye")
-                .withSimpleCard("HelloWorld", "Goodbye")
+                .withSpeech(goodbye)
+                .withSimpleCard(goodbye, goodbye)
                 .build();
     }
 }

@@ -19,7 +19,8 @@ public class HelpIntentHandler implements RequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput input) {
-        String speechText = "Try saying Birdus get sightings";
+        String speechText = "Try asking for a days sightings, Monday Sightings.";
+        speechText = speechText + " Try asking for a county, Kerry Sightings.";
         System.out.println(speechText);
 
         return input.getResponseBuilder()
