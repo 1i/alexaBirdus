@@ -1,7 +1,7 @@
 {
   "interactionModel": {
     "languageModel": {
-      "invocationName": "birdus",
+      "invocationName": "birdie sightings",
       "modelConfiguration": {
         "fallbackIntentSensitivity": {
           "level": "LOW"
@@ -58,7 +58,42 @@
             }
           ],
           "samples": [
+            "tomorrow",
+            "date {date}",
             "get {date} sightings"
+          ]
+        },
+        {
+          "name": "AMAZON.SearchAction<object@Event[startDate]>",
+          "samples": []
+        },
+        {
+          "name": "dayIntent",
+          "slots": [
+            {
+              "name": "day",
+              "type": "AMAZON.DayOfWeek"
+            }
+          ],
+          "samples": [
+            "day {day}"
+          ]
+        },
+        {
+          "name": "LocationDateIntent",
+          "slots": [
+            {
+              "name": "county",
+              "type": "IrishCounties"
+            },
+            {
+              "name": "day",
+              "type": "AMAZON.DayOfWeek"
+            }
+          ],
+          "samples": [
+            "in {county} on {day}",
+            "list {county} last {day}"
           ]
         }
       ],
