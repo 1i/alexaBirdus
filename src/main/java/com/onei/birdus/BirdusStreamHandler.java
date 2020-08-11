@@ -19,7 +19,8 @@ public class BirdusStreamHandler extends SkillStreamHandler {
                         new FallbackIntentHandler(),
                         new DateIntentHandler(),
                         new DayIntentHandler(),
-                        new LocationDateIntentHandler()
+                        new LocationDateIntentHandler(),
+                        new SessionEndHandler()
                 )
                 .build();
     }
