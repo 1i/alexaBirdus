@@ -12,17 +12,17 @@ public class SessionEndHandler implements SessionEndedRequestHandler {
 
     @Override
     public boolean canHandle(HandlerInput handlerInput, SessionEndedRequest sessionEndedRequest) {
-        return false;
+        return true;
     }
 
     @Override
     public Optional<Response> handle(HandlerInput handlerInput, SessionEndedRequest sessionEndedRequest) {
-        return Optional.empty();
+        return handlerInput.getResponseBuilder().build();
     }
 
     @Override
     public boolean canHandle(HandlerInput handlerInput) {
-        return false;
+        return true;
     }
 
     @Override
