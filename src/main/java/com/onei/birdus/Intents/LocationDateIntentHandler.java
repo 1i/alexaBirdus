@@ -27,26 +27,23 @@ public class LocationDateIntentHandler implements RequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput input) {
-        String speechText = "LocationDateIntentHandler";
-        System.out.println(speechText);
-
         Request request1 = input.getRequestEnvelope().getRequest();
         IntentRequest intentRequest = (IntentRequest) request1;
         Map<String, Slot> slots = intentRequest.getIntent().getSlots();
         Slot slotCounty = slots.get("county");
         Slot slotDay = slots.get("day");
         String countyValue = (slotCounty != null) ? slotCounty.getValue() : "null";
-        System.out.println(" " + countyValue);
-        System.out.println("slot County " + slotCounty);
+        log.debug(" " + countyValue);
+        log.debug("slot County " + slotCounty);
         String dayValue = (slotDay != null) ? slotDay.getValue(): LocalDate.now().toString();
-        System.out.println("dayValue " + dayValue);
+        log.debug("dayValue " + dayValue);
         Request request = input.getRequest();
         String county = (String) input.getAttributesManager().getSessionAttributes().get("county");
         String day = (String) input.getAttributesManager().getSessionAttributes().get("day");
 
-        System.out.println("County " + county);
-        System.out.println("Day " + day);
-        System.out.println("Request " + request);
+        log.debug("County " + county);
+        log.debug("Day " + day);
+        log.debug("Request " + request);
         BirdusS3Client birdusS3Client = new BirdusS3Client();
 
         String dateFromDay = Utils.getDateFromDay(dayValue);

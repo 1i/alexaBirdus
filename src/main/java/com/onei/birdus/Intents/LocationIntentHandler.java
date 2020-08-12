@@ -25,20 +25,18 @@ public class LocationIntentHandler implements RequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput input) {
-        String speechText = "LocationIntentHandler";
-        System.out.println(speechText);
 
         Request request1 = input.getRequestEnvelope().getRequest();
         IntentRequest intentRequest = (IntentRequest) request1;
         Map<String, Slot> slots = intentRequest.getIntent().getSlots();
         Slot slotCounty = slots.get("county");
         String slotValue = (slotCounty != null) ? slotCounty.getValue() : "null";
-        System.out.println("slotValue " + slotValue);
-        System.out.println("slot County " + slotCounty);
+        log.debug("slotValue " + slotValue);
+        log.debug("slot County " + slotCounty);
         Request request = input.getRequest();
         String county = (String) input.getAttributesManager().getSessionAttributes().get("county");
-        System.out.println("County " + county);
-        System.out.println("Request " + request);
+        log.debug("County " + county);
+        log.debug("Request " + request);
         BirdusS3Client birdusS3Client = new BirdusS3Client();
         String results = birdusS3Client.getResultsFor(slotValue);
 

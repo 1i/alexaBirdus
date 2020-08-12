@@ -9,7 +9,6 @@ public class Utils {
         DayOfWeek today = LocalDate.now().getDayOfWeek();
         DayOfWeek dayOfWeek = DayOfWeek.valueOf(input.toUpperCase());
         int differenceOfDays = today.minus(dayOfWeek.getValue()).getValue();
-        String expectedDate = LocalDate.now().minusDays(differenceOfDays).toString();
-        return expectedDate;
+        return LocalDate.now().minusDays(differenceOfDays).toString();
     }
 }

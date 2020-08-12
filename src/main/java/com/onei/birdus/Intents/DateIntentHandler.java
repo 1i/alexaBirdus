@@ -19,22 +19,22 @@ public class DateIntentHandler implements RequestHandler {
 
     @Override
     public boolean canHandle(HandlerInput input) {
-        System.out.println(input);
+        log.debug("input", input);
         return input.matches(Predicates.intentName("dateIntent"));
     }
 
     @Override
     public Optional<Response> handle(HandlerInput input) {
         String speechText = "DateIntent";
-        System.out.println(speechText);
+        log.debug(speechText);
 
         Request request = input.getRequestEnvelope().getRequest();
         IntentRequest intentRequest = (IntentRequest) request;
         Map<String, Slot> slots = intentRequest.getIntent().getSlots();
         Slot date = slots.get("date");
         String slotValue = (date != null) ? date.getValue() : "null";
-        System.out.println("slotValue " + slotValue);
-        System.out.println("slot date " + date);
+        log.debug("slotValue " + slotValue);
+        log.debug("slot date " + date);
         BirdusS3Client birdusS3Client = new BirdusS3Client();
         String results = birdusS3Client.getResultsForDate(slotValue);
         return input.getResponseBuilder()

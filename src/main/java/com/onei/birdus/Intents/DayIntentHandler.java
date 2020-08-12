@@ -22,14 +22,11 @@ public class DayIntentHandler implements RequestHandler {
 
     @Override
     public boolean canHandle(HandlerInput input) {
-        System.out.println(input);
         return input.matches(Predicates.intentName("dayIntent"));
     }
 
     @Override
     public Optional<Response> handle(HandlerInput input) {
-        String speechText = "DayIntent";
-        System.out.println(speechText);
         BirdusS3Client birdusS3Client = new BirdusS3Client();
 
         Request request1 = input.getRequestEnvelope().getRequest();
@@ -37,13 +34,13 @@ public class DayIntentHandler implements RequestHandler {
         Map<String, Slot> slots = intentRequest.getIntent().getSlots();
         Slot day = slots.get("day");
         String slotValue = (day != null) ? day.getValue() : "null";
-        System.out.println("slotValue " + slotValue);
-        System.out.println("slot day " + day);
+        log.debug("slotValue " + slotValue);
+        log.debug("slot day " + day);
         String date = Utils.getDateFromDay(slotValue);
         String results = birdusS3Client.getResultsForDate(date);
         return input.getResponseBuilder()
                 .withSpeech(results)
-                .withSimpleCard("Results for "+day, speechText)
+                .withSimpleCard("Results for "+day, results)
                 .build();
     }
 

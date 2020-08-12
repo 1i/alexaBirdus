@@ -22,7 +22,7 @@ public class BirdusS3Client {
 
 
     public String getResults() {
-        System.out.println("Start getResults");
+        log.debug("Get Results");
         String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yy-MM-dd"));
 
         try {
@@ -47,7 +47,6 @@ public class BirdusS3Client {
     }
 
     public String getResultsFor(String county) {
-        System.out.println("Start getResultsFor");
         String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yy-MM-dd"));
 
         try {
@@ -68,7 +67,7 @@ public class BirdusS3Client {
     }
 
     public String getResultsForDate(String date) {
-        System.out.println("Start getResultsForDate " + date);
+        log.debug("Start getResultsForDate " + date);
         String formattedDate = LocalDate.parse(date).format(DateTimeFormatter.ofPattern("yy-MM-dd"));
 
         try {
@@ -92,7 +91,7 @@ public class BirdusS3Client {
     }
 
     public String getResultsForCountyByDay(String county, String date) {
-        System.out.println("Start getResultsForCountyByDay " + county + " " + date);
+        log.debug("Start getResultsForCountyByDay " + county + " " + date);
         String formattedDate = LocalDate.parse(date).format(DateTimeFormatter.ofPattern("yy-MM-dd"));
 
         try {
