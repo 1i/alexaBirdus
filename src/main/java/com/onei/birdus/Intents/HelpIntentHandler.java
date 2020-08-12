@@ -20,12 +20,11 @@ public class HelpIntentHandler implements RequestHandler {
     @Override
     public Optional<Response> handle(HandlerInput input) {
         String speechText = "Try asking for a days sightings, Monday Sightings.";
-        speechText = speechText + " Try asking for a county, Kerry Sightings.";
-        System.out.println(speechText);
+        speechText = speechText + "Or try asking for a county, Kerry Sightings.";
 
         return input.getResponseBuilder()
                 .withSpeech(speechText)
-                .withSimpleCard("HelpIntentHandler", speechText)
+                .withSimpleCard("Need Help?", speechText)
                 .withReprompt(speechText)
                 .build();
     }

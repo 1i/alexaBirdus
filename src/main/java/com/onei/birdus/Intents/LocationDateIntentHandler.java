@@ -54,7 +54,7 @@ public class LocationDateIntentHandler implements RequestHandler {
 
         return input.getResponseBuilder()
                 .withSpeech(results)
-                .withSimpleCard("LocationDateIntentHandler", results)
+                .withSimpleCard("Results for "+countyValue, results)
                 .build();
     }
 

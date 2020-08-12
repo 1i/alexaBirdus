@@ -39,7 +39,7 @@ public class DateIntentHandler implements RequestHandler {
         String results = birdusS3Client.getResultsForDate(slotValue);
         return input.getResponseBuilder()
                 .withSpeech(results)
-                .withSimpleCard("DateIntent", results)
+                .withSimpleCard("Results for " + slotValue, results)
                 .build();
     }
 

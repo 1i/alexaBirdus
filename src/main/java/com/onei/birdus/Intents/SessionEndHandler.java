@@ -7,8 +7,8 @@ import com.amazon.ask.model.SessionEndedRequest;
 
 import java.util.Optional;
 
+//Need this even though its not well documented as a requirement
 public class SessionEndHandler implements SessionEndedRequestHandler {
-
 
     @Override
     public boolean canHandle(HandlerInput handlerInput, SessionEndedRequest sessionEndedRequest) {

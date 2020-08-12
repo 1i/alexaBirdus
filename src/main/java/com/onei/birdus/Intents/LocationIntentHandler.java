@@ -44,7 +44,7 @@ public class LocationIntentHandler implements RequestHandler {
 
         return input.getResponseBuilder()
                 .withSpeech(results)
-                .withSimpleCard("LocationIntentHandler", results)
+                .withSimpleCard("Results for "+county, results)
                 .build();
     }
 

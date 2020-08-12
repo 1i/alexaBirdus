@@ -23,7 +23,7 @@ public class FallbackIntentHandler implements RequestHandler {
         String results = birdusS3Client.getResults();
         return input.getResponseBuilder()
                 .withSpeech(speechText + results)
-                .withSimpleCard("FallbackIntentHandler", speechText)
+                .withSimpleCard("Need Help?", speechText)
                 .withReprompt(speechText)
                 .build();
     }
