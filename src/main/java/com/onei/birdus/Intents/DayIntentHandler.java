@@ -33,11 +33,10 @@ public class DayIntentHandler implements RequestHandler {
         IntentRequest intentRequest = (IntentRequest) request1;
         Map<String, Slot> slots = intentRequest.getIntent().getSlots();
         Slot day = slots.get("day");
-        String slotValue = (day != null) ? day.getValue() : "null";
-        log.debug("slotValue " + slotValue);
+        String dayValue = (day != null) ? day.getValue() : "null";
+        log.debug("dayValue " + dayValue);
         log.debug("slot day " + day);
-        String date = Utils.getDateFromDay(slotValue);
-        String results = birdusS3Client.getResultsForDate(date);
+        String results = birdusS3Client.getResultsForDate(Utils.getDateFromDay(dayValue));
         return input.getResponseBuilder()
                 .withSpeech(results)
                 .withSimpleCard("Results for "+day, results)

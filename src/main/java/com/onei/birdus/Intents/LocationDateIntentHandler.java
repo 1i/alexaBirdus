@@ -46,8 +46,7 @@ public class LocationDateIntentHandler implements RequestHandler {
         log.debug("Request " + request);
         BirdusS3Client birdusS3Client = new BirdusS3Client();
 
-        String dateFromDay = Utils.getDateFromDay(dayValue);
-        String results = birdusS3Client.getResultsForCountyByDay(countyValue,dateFromDay);
+        String results = birdusS3Client.getResultsForCountyByDay(countyValue,Utils.getDateFromDay(dayValue));
 
         return input.getResponseBuilder()
                 .withSpeech(results)

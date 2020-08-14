@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Tests {
 
@@ -19,23 +19,23 @@ public class Tests {
 
     @Test
     public void localJson() throws Exception {
-        String example = "20-06-12.json";
-        URL resource = Model.class.getClassLoader().getResource(example);
 
-        ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource(example).getFile());
+        File file = new File(getClass().getClassLoader().getResource("20-06-12.json").getFile());
 
         ObjectMapper objectMapper = new ObjectMapper();
         List<Model> models = objectMapper.readValue(file, new TypeReference<List<Model>>() {
         });
 
         assertEquals(15, models.size());
+        models.forEach(model -> assertNotNull(model.getCommonName()));
+        models.forEach(model -> assertNotNull(model.getCounty()));
         models.forEach(model -> System.out.println(model.getCommonName() + " in " + model.getCounty()));
     }
 
     @Test
     public void formatter() {
-        birdusS3Client.getResults();
+        String results = birdusS3Client.getResults();
+        assertNotNull(results);
     }
 
     @Test
@@ -53,18 +53,14 @@ public class Tests {
 
     @Test
     public void getResultsForTest() {
-        String results = birdusS3Client.getResultsFor("cork");
+        String results = birdusS3Client.getResultsForCounty("cork");
 
         System.out.println(results);
     }
 
     @Test
     public void getResultsForDay() {
-        String today = LocalDate.now().toString();
-
-        String results = birdusS3Client.getResultsForDate(today);
-
-        System.out.println(results);
+        String results = birdusS3Client.getResultsForDate(LocalDate.now());
     }
 
     @Test
@@ -72,32 +68,30 @@ public class Tests {
         String date = "monday";
         DayOfWeek today = LocalDate.now().getDayOfWeek();
         DayOfWeek dayOfWeek = DayOfWeek.valueOf(date.toUpperCase());
-        System.out.println(today);
-        System.out.println(dayOfWeek);
 
-        System.out.println();
         int differenceOfDays = today.minus(dayOfWeek.getValue()).getValue();
-        String expectedDate = LocalDate.now().minusDays(differenceOfDays).toString();
-
+        LocalDate expectedDate = LocalDate.now().minusDays(differenceOfDays);
         String results = birdusS3Client.getResultsForDate(expectedDate);
         System.out.println(results);
     }
 
     @Test
     public void getLocationByDayOfWeek() {
-        String date = LocalDate.now().minusDays(4).toString();
+        LocalDate date = LocalDate.now().minusDays(4);
         String county = "dublin";
 
         String results = birdusS3Client.getResultsForCountyByDay(county, date);
-        System.out.println(results);
+        assertNotNull(results);
+        assertTrue(results.contains("dublin") && results.contains("sightings"));
     }
 
     @Test
     public void getLocationByDayOfWeekCork() {
-        String date = LocalDate.now().minusDays(7).toString();
+        LocalDate date = LocalDate.now().minusDays(7);
         String county = "cork";
 
         String results = birdusS3Client.getResultsForCountyByDay(county, date);
-        System.out.println(results);
+        assertNotNull(results);
+        assertTrue(results.contains("cork") && results.contains("sightings"));
     }
 }
