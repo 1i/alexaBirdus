@@ -20,14 +20,13 @@ public class FallbackIntentHandler implements RequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput input) {
-        log.debug("Input",input);
+        log.debug("Input {}",input);
         String speechText = "Did you want the sightings for yesterday? If not ask for Help. ";
         BirdusS3Client birdusS3Client = new BirdusS3Client();
         String results = birdusS3Client.getResults();
         return input.getResponseBuilder()
                 .withSpeech(speechText + results)
                 .withSimpleCard("Need Help?", speechText)
-                .withReprompt(speechText)
                 .build();
     }
 }
