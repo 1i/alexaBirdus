@@ -14,41 +14,38 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Slf4j
 public class BirdusS3Client {
 
-    private StringBuilder result = new StringBuilder();
+    private StringBuilder stringBuilder = new StringBuilder();
     private final ObjectMapper objectMapper = new ObjectMapper();
 
 
     public String getResults() {
         List<Model> models = fetchS3Json(LocalDate.now());
+        stringBuilder.append("Yesterday had " + models.size() + " sightings. ");
 
-        Map<String, List<Model>> byCounties = models.stream().collect(Collectors.groupingBy(Model::getCounty));
+        Map<String, List<Model>> byCountiesSightings = models.stream().collect(Collectors.groupingBy(Model::getCounty));
+        List<Map.Entry<String, List<Model>>> sorted = byCountiesSightings.entrySet().stream().sorted(Comparator.comparing(listEntry -> listEntry.getValue().size())).collect(Collectors.toList());
 
-        byCounties.entrySet().stream().sorted(Comparator.comparing(size -> size.getValue().size())).collect(Collectors.toList()) ;
-
-        result.append("Yesterday had " + models.size() + " sightings. ");
-
-        for (List<Model> county : byCounties.values()) {
-            result.append("In " + county.get(0).getCounty() + ". ");
-            county.forEach(model -> result.append(model.getCommonName() + ", "));
+        for (int i = sorted.size() - 1; i > 0; i--) {
+            stringBuilder.append("In " + sorted.get(i).getKey() + ". ");
+            sorted.get(i).getValue().stream().distinct().forEach(model -> stringBuilder.append(model.getCommonName() + ", "));
         }
-        return result.toString();
+        return stringBuilder.toString();
     }
 
     public String getResultsForCounty(String county) {
         List<Model> models = fetchS3Json(LocalDate.now());
 
         List<Model> counties = models.stream().filter(model -> model.getCounty().equalsIgnoreCase(county)).collect(Collectors.toList());
-        result.append(county + " yesterday had " + counties.size() + " sightings. ");
+        stringBuilder.append(county + " yesterday had " + counties.size() + " sightings. ");
 
         for (Model location : counties) {
-            result.append(location.getCommonName() + ", ");
+            stringBuilder.append(location.getCommonName() + ", ");
         }
-        return result.toString();
+        return stringBuilder.toString();
     }
 
     public String getResultsForDate(LocalDate date) {
@@ -56,15 +53,16 @@ public class BirdusS3Client {
 
         Map<String, List<Model>> byCountiesSightings = models.stream().collect(Collectors.groupingBy(Model::getCounty));
 
-        Stream<Map.Entry<String, List<Model>>> sorted = byCountiesSightings.entrySet().stream().sorted(Comparator.comparing(size -> size.getValue().size()));
-        result.append("Last " + date.getDayOfWeek().toString() + " had " + models.size() + " sightings. ");
+        List<Map.Entry<String, List<Model>>> sorted;
+        sorted = byCountiesSightings.entrySet().stream().sorted(Comparator.comparing(listEntry -> listEntry.getValue().size())).collect(Collectors.toList());
+        stringBuilder.append("Last " + date.getDayOfWeek().toString() + " had " + models.size() + " sightings. ");
 
-        for (List<Model> countySighting : byCountiesSightings.values()) {
-            List<Model> distictSighting = countySighting.stream().distinct().collect(Collectors.toList());
-            result.append("In " + countySighting.get(0).getCounty() + ". ");
-            distictSighting.forEach(model -> result.append(model.getCommonName() + ", "));
+        for (int i = sorted.size() - 1; i > 0; i--) {
+            stringBuilder.append("In " + sorted.get(i).getKey() + ". ");
+            sorted.get(i).getValue().stream().distinct().forEach(model -> stringBuilder.append(model.getCommonName() + ", "));
         }
-        return result.toString();
+
+        return stringBuilder.toString();
     }
 
     public String getResultsForCountyByDay(String county, LocalDate date) {
@@ -72,18 +70,18 @@ public class BirdusS3Client {
         List<Model> models = fetchS3Json(date);
 
         List<Model> counties = models.stream().filter(model -> model.getCounty().equalsIgnoreCase(county)).collect(Collectors.toList());
-        result.append("Last " + date.getDayOfWeek().toString() + "  ");
-        result.append(county + " had " + counties.size() + " sightings. ");
+        stringBuilder.append("Last " + date.getDayOfWeek().toString() + "  ");
+        stringBuilder.append(county + " had " + counties.size() + " sightings. ");
 
         for (Model location : counties) {
-            result.append(location.getCommonName() + ", ");
+            stringBuilder.append(location.getCommonName() + ", ");
         }
-        return result.toString();
+        return stringBuilder.toString();
     }
 
     private List<Model> fetchS3Json(LocalDate date) {
         log.debug("Get Results for [{}]", date);
-        String formattedDate ;
+        String formattedDate;
         try {
             formattedDate = date.format(DateTimeFormatter.ofPattern("yy-MM-dd"));
         } catch (DateTimeParseException dte) {

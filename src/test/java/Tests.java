@@ -48,7 +48,7 @@ public class Tests {
         models = objectMapper.readValue(path, new TypeReference<List<Model>>() {
         });
 
-        System.out.println(models);
+        assertNotNull(models);
     }
 
     @Test
@@ -65,7 +65,7 @@ public class Tests {
 
     @Test
     public void getDayOfWeek() {
-        String date = "monday";
+        String date = "tuesday";
         DayOfWeek today = LocalDate.now().getDayOfWeek();
         DayOfWeek dayOfWeek = DayOfWeek.valueOf(date.toUpperCase());
 
@@ -93,5 +93,11 @@ public class Tests {
         String results = birdusS3Client.getResultsForCountyByDay(county, date);
         assertNotNull(results);
         assertTrue(results.contains("cork") && results.contains("sightings"));
+    }
+
+    @Test
+    //alexa ask birdie sightings on tuesday
+    public void tuesdayDayTest(){
+
     }
 }

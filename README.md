@@ -1,4 +1,4 @@
-# Birdus Alexa Skill
+cd # Birdus Alexa Skill
 
 Read a list of bird sightings, sort into counties by day and list the species seen for that day.  
   
@@ -26,8 +26,14 @@ with the setting for _createDependencyReducedPom_ to false.
 
 ### Learnings
 
-- Check which UK or US english in the top left of the code section in Alexa console.
+- Check which language is the app targeting UK or US english. Top left of the code section in Alexa console.
 - App can be cloned into same language but different region.
 - Implement the required Intents and the SessionEndHandler which is not documented well as a requirement.  
-- When app returns <Audio message> sound but no logs when calling via simulator or real device, rename the invocation name.
-- Invovation name has to be 2 words to be published but can be one word for development.
+- When app returns <Audio message> sound but no logs when calling via simulator or real device, try renaming the invocation name.
+- Innovation name has to be 2 words to be published but can be one word for development.
+- SL4J logging mess. Uber Jar and other versions of L4J on classpath.
+
+
+### Improvements
+
+- If the requested day is not available fall back to most recent result.. How to along iterating back in days.. 
