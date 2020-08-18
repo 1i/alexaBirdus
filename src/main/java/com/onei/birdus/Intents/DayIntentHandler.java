@@ -39,7 +39,7 @@ public class DayIntentHandler implements RequestHandler {
         String results = birdusS3Client.getResultsForDate(Utils.getDateFromDay(dayValue));
         return input.getResponseBuilder()
                 .withSpeech(results)
-                .withSimpleCard("Results for "+day, results)
+                .withSimpleCard("Results for "+dayValue, results)
                 .build();
     }
 
