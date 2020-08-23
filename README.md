@@ -9,7 +9,7 @@ Read a list of bird sightings, sort into counties by day and list the species se
 
 
 Lambda collects results -> saves to S3 & DynamoDb -> Alexa reads results.  
-Relies on https://github.com/1i/dynamoBirdus to prepopulate the sightings, whichs read from www.irishbirding.com . 
+Relies on https://github.com/1i/dynamoBirdus to prepopulate the sightings, which reads from www.irishbirding.com . 
 
 ### Update the lambda  
 ```
@@ -21,7 +21,7 @@ aws lambda update-function-code --function-name birdus-alexa --zip-file fileb://
 AWS dependencies are available on the class path.  
 Maven shade plugin is used to include extra dependencies in the jar for Lambda 
 with the setting for _createDependencyReducedPom_ to false.
-
+    
 
 
 ### Learnings
