@@ -1,0 +1,18 @@
+{
+  "body": {
+    "version": "1.0",
+    "response": {
+      "outputSpeech": {
+        "type": "SSML",
+        "ssml": "<speak>Last TUESDAY had 7 sightings. In Wicklow. Stone-curlew, Stone-curlew, In Westmeath. Sand Martin, Little Grebe, In Dublin. Wheatear,</speak>"
+      },
+      "card": {
+        "type": "Simple",
+        "title": "Results for class Slot {\n    name: day\n    value: Tuesday\n    confirmationStatus: NONE\n    resolutions: null\n    slotValue: class SimpleSlotValue {\n        class SlotValue {\n            type: Simple\n        }\n        value: Tuesday\n        resolutions: null\n    }\n}",
+        "content": "Last TUESDAY had 7 sightings. In Wicklow. Stone-curlew, Stone-curlew, In Westmeath. Sand Martin, Little Grebe, In Dublin. Wheatear, "
+      },
+      "type": "_DEFAULT_RESPONSE"
+    },
+    "userAgent": "ask-java/2.31.0 Java/1.8.0_201 templateResolver"
+  }
+}

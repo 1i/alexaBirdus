@@ -37,3 +37,15 @@ with the setting for _createDependencyReducedPom_ to false.
 ### Improvements
 
 - If the requested day is not available fall back to most recent result.. How to along iterating back in days.. 
+
+
+### Testing
+
+*Unit tests* though I am happy calling S3 inside a unit test instead of reading a local json file.  
+*Integration tests* calling S3.  
+
+*End to End test* this is where I would like to assert against the Alexa output see alexaResponse.json.  
+The problem with E2E tests :
+- Where are they run from, locally, CI or in AWS.
+- How to authenicate to call the lambda.
+- How to call lamdba directly or do I need APIGateway infront.  

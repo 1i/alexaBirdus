@@ -1,7 +1,12 @@
+import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.RequestHandler;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.onei.birdus.BirdusS3Client;
+import com.onei.birdus.LaunchRequestHandler;
 import com.onei.birdus.Model;
+import junit.framework.Assert;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -99,5 +104,17 @@ public class Tests {
     //alexa ask birdie sightings on tuesday
     public void tuesdayDayTest(){
 
+    }
+
+    @Test
+    public void testLambdaFunctionHandler() {
+        LaunchRequestHandler launchRequestHandler = new LaunchRequestHandler();
+
+
+        Object output = launchRequestHandler.handle();
+        if (output != null) {
+            System.out.println(output.toString());
+        }
+        Assert.assertEquals("", output);
     }
 }
