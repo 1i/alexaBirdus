@@ -37,6 +37,7 @@ with the setting for _createDependencyReducedPom_ to false.
 ### Improvements
 
 - If the requested day is not available fall back to most recent result.. How to along iterating back in days.. 
+- eBird.org provide a RESTful API
 
 
 ### Testing
