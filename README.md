@@ -1,4 +1,6 @@
-cd # Birdus Alexa Skill
+# Birdus Alexa Skill
+
+See improved version at https://github.com/1i/ebirdus
 
 Read a list of bird sightings, sort into counties by day and list the species seen for that day.  
   
